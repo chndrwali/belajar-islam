@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fdfbf7;
+  --color-coklat: #8b5e3c;
+  --color-coklat-dark: #6f4a2e;
+  --color-coklat-soft: #f3e9de;
+  --color-emas: #b45309;
+  --color-emas-soft: #fdf0dd;
+  --font-arabic: var(--font-amiri), "Traditional Arabic", serif;
+}
+
+body {
+  background-color: #fdfbf7;
+  color: #1c1917;
+}
+
+/* Teks Arab: font Amiri, ukuran besar, arah RTL (dipakai bersama dir="rtl"). */
+.font-arabic {
+  font-family: var(--font-amiri), "Traditional Arabic", serif;
+}
