@@ -135,6 +135,23 @@ export default async function MateriDetailPage({
         <MarkReadButton slug={material.slug} />
       </div>
 
+      {slug === "shalat" ? (
+        <div className="mt-6 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-lg font-bold">Lanjutkan ke praktiknya</h2>
+          <p className="mt-2 leading-relaxed text-stone-700">
+            Materi ini menjelaskan gambaran besarnya. Tata cara langkah demi langkah — gerakan,
+            bacaan Arab, latin, dan artinya — ada di halaman Sholat, beserta sholat Taubat, Duha,
+            Tahajud, dan Jenazah.
+          </p>
+          <Link
+            href="/sholat"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-coklat px-5 py-2.5 text-sm font-semibold text-white hover:bg-coklat-dark"
+          >
+            Buka halaman Sholat <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      ) : null}
+
       <nav className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-stone-200 pt-6">
         {prev ? (
           <Link
