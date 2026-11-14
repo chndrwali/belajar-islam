@@ -54,6 +54,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               dan akidah, rujuk Al-Quran, kitab, dan ustadz tepercaya. Semua progres tersimpan
               hanya di browser kamu — tanpa akun, tanpa server.
             </p>
+            <p className="mt-3">
+              Dibuat oleh{" "}
+              <span className="font-semibold text-stone-900">Candra Wali Sanjaya</span> —{" "}
+              <a
+                href="https://github.com/chndrwali/belajar-islam"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-coklat hover:underline"
+              >
+                github.com/chndrwali/belajar-islam
+              </a>
+            </p>
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-medium">
               <Link href="/tentang" className="hover:text-coklat">Tentang</Link>
               <Link href="/privasi" className="hover:text-coklat">Privasi</Link>
