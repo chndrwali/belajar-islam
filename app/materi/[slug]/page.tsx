@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock, Lightbulb } from "lucide-react";
 import { MATERIALS, SECTION_INFO } from "@/lib/islam/materials";
+import { BookReader, type BookReaderPage } from "@/components/islam/book-reader";
 import { MarkReadButton } from "@/components/islam/mark-read-button";
 
 export function generateStaticParams() {
@@ -36,6 +37,18 @@ export default async function MateriDetailPage({
   const prev = idx > 0 ? MATERIALS[idx - 1] : undefined;
   const next = idx < MATERIALS.length - 1 ? MATERIALS[idx + 1] : undefined;
 
+  const sections = material.sections;
+  const sources = material.sources;
+  // Defensif: bila sections kosong (mis. data lama), jatuh ke tampilan keyPoints lama.
+  const hasSections = Array.isArray(sections) && sections.length > 0;
+  const readerPages: BookReaderPage[] = hasSections
+    ? sections.map((s) => ({
+        heading: s.heading,
+        paragraphs: s.body,
+      }))
+    : [];
+  const hasSources = Array.isArray(sources) && sources.length > 0;
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Link
@@ -56,19 +69,41 @@ export default async function MateriDetailPage({
         <Clock className="h-4 w-4" /> Estimasi {material.estimatedMinutes} menit
       </p>
 
-      <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
-        <h2 className="text-lg font-bold">Poin-poin materi</h2>
-        <ul className="mt-4 space-y-3">
-          {material.keyPoints.map((point, i) => (
-            <li key={i} className="flex gap-3 text-sm leading-relaxed text-stone-700 sm:text-base">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-coklat-soft text-xs font-bold text-coklat">
-                {i + 1}
-              </span>
-              {point}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {hasSections ? (
+        <>
+          <div className="mt-8">
+            <BookReader key={material.slug} pages={readerPages} />
+          </div>
+
+          <div className="mt-6 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+            <h2 className="text-lg font-bold">Ringkasan</h2>
+            <ul className="mt-4 space-y-3">
+              {material.keyPoints.map((point, i) => (
+                <li key={i} className="flex gap-3 text-sm leading-relaxed text-stone-700 sm:text-base">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-coklat-soft text-xs font-bold text-coklat">
+                    {i + 1}
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      ) : (
+        <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-lg font-bold">Poin-poin materi</h2>
+          <ul className="mt-4 space-y-3">
+            {material.keyPoints.map((point, i) => (
+              <li key={i} className="flex gap-3 text-sm leading-relaxed text-stone-700 sm:text-base">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-coklat-soft text-xs font-bold text-coklat">
+                  {i + 1}
+                </span>
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="mt-6 rounded-3xl border border-amber-200 bg-emas-soft p-6 shadow-sm sm:p-8">
         <h2 className="flex items-center gap-2 text-lg font-bold">
@@ -84,6 +119,17 @@ export default async function MateriDetailPage({
           </p>
         </details>
       </div>
+
+      {hasSources ? (
+        <div className="mt-6 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-lg font-bold">Sumber</h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-stone-700 sm:text-base">
+            {(sources as string[]).map((source, i) => (
+              <li key={i}>{source}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <div className="mt-8">
         <MarkReadButton slug={material.slug} />
