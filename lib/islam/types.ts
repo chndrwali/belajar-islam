@@ -1,8 +1,10 @@
 export type SectionKey = "akidah" | "ibadah" | "quran" | "sirah" | "akhlak";
+export interface MaterialSection { heading: string; body: string[]; }
 export interface Material {
   slug: string; section: SectionKey; sectionName: string;
   title: string; short: string; estimatedMinutes: number;
   keyPoints: string[]; example: string; exampleAnswer: string;
+  sections: MaterialSection[]; sources?: string[];
 }
 export interface Question {
   id: string; section: SectionKey;
@@ -19,7 +21,7 @@ export interface AsmaulHusna { no: number; arabic: string; latin: string; meanin
 export interface KisahNabi {
   slug: string; name: string; arabic: string;
   summary: string; story: string[]; // 2-4 paragraf pendek
-  trial: string; lesson: string; prayer?: string;
+  trial: string; lesson: string; prayer?: string; sources: string[];
 }
 export interface ChecklistItem { id: string; title: string; detail: string; category: string; }
 export interface TryoutResult {
