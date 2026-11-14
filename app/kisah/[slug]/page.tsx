@@ -3,6 +3,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, HeartHandshake, Lightbulb, Quote } from "lucide-react";
 import { KISAH_NABI } from "@/lib/islam/kisah";
+import { BookReader, type BookReaderPage } from "@/components/islam/book-reader";
+
+/** Bagi daftar paragraf menjadi halaman-halaman berisi 2 paragraf. */
+function chunkStory(paragraphs: string[], perPage = 2): BookReaderPage[] {
+  const pages: BookReaderPage[] = [];
+  for (let i = 0; i < paragraphs.length; i += perPage) {
+    pages.push({ paragraphs: paragraphs.slice(i, i + perPage) });
+  }
+  return pages;
+}
 
 export function generateStaticParams() {
   return KISAH_NABI.map((k) => ({ slug: k.slug }));
@@ -32,6 +42,10 @@ export default async function KisahDetailPage({
   const prev = idx > 0 ? KISAH_NABI[idx - 1] : undefined;
   const next = idx < KISAH_NABI.length - 1 ? KISAH_NABI[idx + 1] : undefined;
 
+  const storyPages = chunkStory(kisah.story, 2);
+  const sources = kisah.sources;
+  const hasSources = Array.isArray(sources) && sources.length > 0;
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Link
@@ -49,12 +63,8 @@ export default async function KisahDetailPage({
       </div>
       <p className="mt-3 text-lg leading-relaxed text-stone-600">{kisah.summary}</p>
 
-      <div className="mt-8 space-y-4">
-        {kisah.story.map((paragraph, i) => (
-          <p key={i} className="leading-relaxed text-stone-700">
-            {paragraph}
-          </p>
-        ))}
+      <div className="mt-8">
+        <BookReader key={kisah.slug} pages={storyPages} />
       </div>
 
       <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
@@ -79,6 +89,17 @@ export default async function KisahDetailPage({
         </h2>
         <p className="mt-2 leading-relaxed text-stone-700">{kisah.lesson}</p>
       </div>
+
+      {hasSources ? (
+        <div className="mt-6 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-bold">Sumber</h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-stone-700 sm:text-base">
+            {(sources as string[]).map((source, i) => (
+              <li key={i}>{source}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <nav className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-stone-200 pt-6">
         {prev ? (
