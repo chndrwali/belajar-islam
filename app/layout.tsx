@@ -12,7 +12,7 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   title: "Belajar Islam — Belajar Agama dari 0",
   description:
-    "Belajar Islam dari nol: 15 materi ringkas, kuis per bagian, tryout 30 soal, galeri doa, 99 Asmaul Husna, kisah 25 nabi, jurnal refleksi, dan checklist amalan harian. Gratis, tanpa login, progres tersimpan di browser kamu.",
+    "Belajar Islam dari nol: 15 materi ringkas, kuis per bagian, tryout 30 soal, galeri doa, Ratib al-Haddad, 99 Asmaul Husna, kisah 25 nabi, jurnal refleksi, dan checklist amalan harian. Gratis, tanpa login, progres tersimpan di browser kamu.",
 };
 
 const NAV = [
@@ -21,6 +21,7 @@ const NAV = [
   { href: "/kuis", label: "Kuis" },
   { href: "/tryout", label: "Tryout" },
   { href: "/doa", label: "Doa" },
+  { href: "/ratib", label: "Ratib" },
   { href: "/kisah", label: "Kisah" },
   { href: "/jurnal", label: "Jurnal" },
   { href: "/checklist", label: "Checklist" },

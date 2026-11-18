@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, MoonStar, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, MoonStar, ScrollText, Sparkles } from "lucide-react";
 import { MATERIALS, SECTION_INFO } from "@/lib/islam/materials";
 import { DOA_ENTRIES } from "@/lib/islam/doa";
 import { KISAH_NABI } from "@/lib/islam/kisah";
@@ -12,7 +12,7 @@ import { HomeProgress } from "@/components/islam/home-progress";
 export const metadata: Metadata = {
   title: "Belajar Islam — Belajar Agama dari 0",
   description:
-    "Belajar Islam dari nol: 15 materi ringkas, kuis per bagian, tryout 30 soal, galeri doa, 99 Asmaul Husna, kisah 25 nabi, jurnal refleksi, dan checklist amalan harian. Gratis, tanpa login.",
+    "Belajar Islam dari nol: 15 materi ringkas, kuis per bagian, tryout 30 soal, galeri doa, Ratib al-Haddad, 99 Asmaul Husna, kisah 25 nabi, jurnal refleksi, dan checklist amalan harian. Gratis, tanpa login.",
 };
 
 const SECTION_ORDER: SectionKey[] = ["akidah", "ibadah", "quran", "sirah", "akhlak"];
@@ -110,6 +110,18 @@ export default function HomePage() {
               99 nama Allah yang indah, beserta arti singkatnya. Bisa dicari per nama.
             </p>
             <p className="mt-3 text-sm font-semibold text-emas">99 nama →</p>
+          </Link>
+          <Link
+            href="/ratib"
+            className="group rounded-3xl border border-amber-200 bg-emas-soft p-6 shadow-sm transition hover:border-emas hover:shadow-md"
+          >
+            <ScrollText className="h-6 w-6 text-emas" />
+            <h3 className="mt-3 text-lg font-bold group-hover:text-emas">Ratib al-Haddad</h3>
+            <p className="mt-1 text-sm leading-relaxed text-stone-600">
+              Wirid harian dari Imam al-Haddad — 34 bagian lengkap dengan teks Arab, latin,
+              arti, dan jumlah bacaan.
+            </p>
+            <p className="mt-3 text-sm font-semibold text-emas">34 bagian →</p>
           </Link>
         </div>
       </section>
